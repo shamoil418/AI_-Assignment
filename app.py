@@ -82,9 +82,13 @@ with st.sidebar:
 if selected_models:
     st.header("📊 Results and Analysis")
     
-    # Load data directly from the local file
-    file_name = 'teen_phone_addiction_dataset.csv'
-    (X_train, X_test, y_train, y_test), preprocessor, class_names, X_full = load_and_preprocess_data(file_name)
+    uploaded_file = st.file_uploader("📂 Upload teen addiction dataset (CSV)", type=["csv"])
+    
+    if uploaded_file is not None:
+        (X_train, X_test, y_train, y_test), preprocessor, class_names, X_full = load_and_preprocess_data(uploaded_file)
+    else:
+        st.warning("⚠️ Please upload the dataset to continue.")
+        st.stop()
     
     results_list = []
 
